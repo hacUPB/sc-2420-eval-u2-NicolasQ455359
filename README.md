@@ -1,6 +1,6 @@
 # Documentación del Proyecto
 ## Unidad 2
 
-Estudiante:  
-Id:  
+Estudiante: Nicolas Quintero Cardona  
+Id:455359  
 ---
