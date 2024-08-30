@@ -1,4 +1,4 @@
-### EJERCICIO 1
+# EJERCICIO 1
 
 ## 1. Identificación de Funciones:
 Setup(): Se encarga de inicializar recursos, configurar el entorno y realizar preparaciones antes de que el juego comience a ejecutarse.
@@ -31,7 +31,7 @@ void Render() {
 
 Se ejecuta el programa y se observa cómo las funciones se llaman repetidamente. Esto te mostrará el ciclo continuo del Game Loop, donde Setup() se ejecuta al inicio, y luego Update() y Render() se llaman en cada iteración del loop.
 
-### EJERCICIO 2
+# EJERCICIO 2
 
 1. Agregar Cronometrado utilizando SDL_GetTicks()
 SDL_GetTicks() es una función de SDL2 que devuelve el número de milisegundos que han transcurrido desde que se inició el subsistema SDL. Usaremos esta función para medir el tiempo antes y después de las llamadas a Update() y Render().
@@ -174,7 +174,7 @@ Observación: La implementación de SDL_Delay() al final de cada loop permitió 
 
 Análisis: El uso de SDL_Delay() es una estrategia eficaz para evitar que el Game Loop se ejecute demasiado rápido, lo que podría causar fluctuaciones en la tasa de cuadros. Esto asegura que la experiencia de juego sea coherente y suave.
 
-# 3. Conclusiones y Documentación
+### 3. Conclusiones y Documentación
    
 a. Registra tus Observaciones:
 
@@ -189,7 +189,7 @@ Explicación: Controlar y entender el tiempo de ejecución es crucial para garan
 Estrategias: Para mantener una frecuencia de actualización constante, se podría implementar un delta time, que permite que los cálculos de movimiento y animación sean independientes de la tasa de cuadros por segundo.
 
 
-### Ejercicio 3: Creación de Figuras Geométricas
+# Ejercicio 3: Creación de Figuras Geométricas
 
 Objetivo:
 
