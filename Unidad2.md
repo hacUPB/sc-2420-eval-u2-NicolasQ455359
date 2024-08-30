@@ -187,3 +187,6 @@ b. Reflexiona sobre la Importancia:
 Explicación: Controlar y entender el tiempo de ejecución es crucial para garantizar que el juego se sienta responsivo y fluido. Sin un control adecuado, el juego podría experimentar lag, baja tasa de FPS, o incluso caídas en el rendimiento, lo que afectaría negativamente la experiencia del usuario.
 
 Estrategias: Para mantener una frecuencia de actualización constante, se podría implementar un delta time, que permite que los cálculos de movimiento y animación sean independientes de la tasa de cuadros por segundo.
+
+
+
