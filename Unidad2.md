@@ -6,7 +6,7 @@ Update(): Es responsable de actualizar la lógica del juego en cada iteración d
 Render(): Dibuja los gráficos en la pantalla. Se encarga de la representación visual del juego, actualizando la pantalla con los últimos cambios.
 
 ### 2. Inserta un printf():
-Añade un printf() en cada función para observar el orden en que se ejecutan. Por ejemplo:
+Se añade un printf() en cada función para observar el orden en que se ejecutan. Por ejemplo:
 
 ```c
 Copiar código
@@ -27,4 +27,4 @@ void Render() {
 ```
 ### 3. Ejecución del Programa:
 
-Ejecuta el programa y observa cómo las funciones se llaman repetidamente. Esto te mostrará el ciclo continuo del Game Loop, donde Setup() se ejecuta al inicio, y luego Update() y Render() se llaman en cada iteración del loop.
+Se ejecuta el programa y se observa cómo las funciones se llaman repetidamente. Esto te mostrará el ciclo continuo del Game Loop, donde Setup() se ejecuta al inicio, y luego Update() y Render() se llaman en cada iteración del loop.
