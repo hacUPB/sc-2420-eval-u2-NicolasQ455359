@@ -44,7 +44,7 @@ A. Inicializa Variables de Tiempo: Define variables para almacenar el tiempo ant
 #include <SDL2/SDL.h>
 #include <stdio.h>
 
-// Variables globales o dentro de tu main loop
+// Variables globales main loop
 Uint32 updateStartTime, updateEndTime, updateDeltaTime;
 Uint32 renderStartTime, renderEndTime, renderDeltaTime;
 
@@ -71,7 +71,7 @@ c. Modifica la Función Render()
 void Render() {
     renderStartTime = SDL_GetTicks();
     
-    // Código de renderizado aquí
+    // Código de renderizado
     printf("Rendering scene...\n");
     
     renderEndTime = SDL_GetTicks();
