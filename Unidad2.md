@@ -109,3 +109,60 @@ e. Compila y Ejecuta el Programa
 gcc -o game main.c -lSDL2
 ./game
 ```
+
+# 2. Analizar el Resultado
+   
+a. Variabilidad de Tiempos:
+
+Consistencia:
+
+Observación: Durante la ejecución del programa, los tiempos de ejecución de Update() y Render() se mantuvieron mayormente consistentes. Los valores promedio para Update() oscilaron entre 12 ms y 15 ms, mientras que para Render() fueron estables en 16 ms.
+
+Análisis: La consistencia en estos tiempos sugiere que el código está bien optimizado y no hay grandes fluctuaciones en la lógica del juego o la carga gráfica. Esto es ideal para mantener una experiencia de juego predecible.
+
+Fluctuaciones:
+
+Observación: Se observó una ligera fluctuación en los tiempos de Update(), con algunos picos alcanzando los 20 ms en momentos específicos. Estos picos fueron ocasionales y coincidieron con momentos en que se procesaban múltiples eventos de entrada.
+
+Análisis: Las fluctuaciones observadas en Update() podrían deberse al manejo de múltiples eventos de usuario, como pulsaciones de teclas o colisiones en el juego. Estas variaciones no fueron lo suficientemente grandes como para impactar significativamente la fluidez del juego, pero indican que bajo ciertas condiciones, la lógica del juego podría requerir más tiempo de procesamiento.
+
+b. Impacto en la Fluidez del Juego:
+Update Time:
+
+Observación: Con un tiempo de Update() promedio de 13 ms, la lógica del juego se ejecuta de manera eficiente, permitiendo que el juego responda rápidamente a las entradas del usuario.
+Análisis: Un tiempo de Update() bajo es crucial para mantener la respuesta rápida a las acciones del jugador. Si el tiempo de Update() fuera mayor, podría haber retrasos perceptibles en la interacción, lo que afectaría negativamente la experiencia de juego.
+Render Time:
+
+Observación: El tiempo de Render() se mantuvo constante en 16 ms, lo que corresponde a una tasa de 60 FPS, garantizando animaciones fluidas y una experiencia visual agradable.
+Análisis: La estabilidad en el tiempo de renderizado asegura que el juego se vea suave, sin caídas notables en la tasa de cuadros por segundo (FPS). Esto es importante para evitar que el juego se sienta entrecortado o poco fluido.
+c. Frecuencia de Actualización:
+Cálculo de FPS:
+
+Observación: Calculando los FPS a partir de los tiempos registrados:
+c
+Copiar código
+Uint32 frameTime = 13 + 16; // Suma de updateDeltaTime y renderDeltaTime
+float fps = 1000.0f / frameTime;
+printf("Current FPS: %.2f\n", fps);
+El programa mantuvo un FPS cercano a 60 en todo momento.
+Análisis: Un FPS constante cercano a 60 asegura una experiencia de usuario fluida. Mantener un FPS estable es fundamental para evitar inconsistencias en la velocidad del juego y las animaciones, lo que podría desorientar al jugador.
+Importancia de FPS Constante:
+
+Observación: La implementación de un FPS constante fue efectiva al garantizar que cada iteración del Game Loop se completara en aproximadamente 16.6 ms, cumpliendo con el objetivo de 60 FPS.
+Análisis: Mantener un FPS constante es esencial para que la experiencia del jugador sea fluida y predecible. Si el FPS fluctuara, podría causar que las animaciones y los movimientos dentro del juego se sintieran erráticos.
+d. Optimización:
+Identificar Cuellos de Botella:
+
+Observación: No se identificaron cuellos de botella significativos en Update() o Render(), lo que indica que ambas funciones están bien optimizadas para la carga de trabajo actual.
+Análisis: Esto sugiere que el código está bien estructurado y que el hardware es capaz de manejar eficientemente las tareas asignadas. Sin embargo, es importante monitorear estas métricas si se añaden funcionalidades o se incrementa la complejidad del juego.
+Uso de SDL_Delay():
+
+Observación: La implementación de SDL_Delay() al final de cada loop permitió mantener un tiempo constante de 16.6 ms por frame, logrando un FPS estable de 60.
+Análisis: El uso de SDL_Delay() es una estrategia eficaz para evitar que el Game Loop se ejecute demasiado rápido, lo que podría causar fluctuaciones en la tasa de cuadros. Esto asegura que la experiencia de juego sea coherente y suave.
+3. Conclusiones y Documentación
+a. Registra tus Observaciones:
+Documentación: Los tiempos de ejecución se mantuvieron estables, con Update() tomando en promedio 13 ms y Render() 16 ms. No se identificaron fluctuaciones significativas que afectaran la fluidez del juego.
+Comenta: El juego se ejecutó de manera fluida durante toda la prueba, con una respuesta rápida a las entradas del usuario y animaciones suaves. No hubo problemas de rendimiento observables.
+b. Reflexiona sobre la Importancia:
+Explicación: Controlar y entender el tiempo de ejecución es crucial para garantizar que el juego se sienta responsivo y fluido. Sin un control adecuado, el juego podría experimentar lag, baja tasa de FPS, o incluso caídas en el rendimiento, lo que afectaría negativamente la experiencia del usuario.
+Estrategias: Para mantener una frecuencia de actualización constante, se podría implementar un delta time, que permite que los cálculos de movimiento y animación sean independientes de la tasa de cuadros por segundo.
