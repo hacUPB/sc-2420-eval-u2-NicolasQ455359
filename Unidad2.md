@@ -55,7 +55,7 @@ b. Modifica la Función Update(): Mide el tiempo antes y después de la ejecuci�
 void Update() {
     updateStartTime = SDL_GetTicks();
     
-    // Lógica del juego aquí
+    // Lógica del juego 
     printf("Update logic running...\n");
     
     updateEndTime = SDL_GetTicks();
@@ -94,7 +94,7 @@ int main(int argc, char* argv[]) {
         Render();
         
         // Manejo de eventos y condiciones para salir del loop
-        SDL_Delay(16); // Opcional: Limita el loop aproximadamente a 60 FPS
+        SDL_Delay(16); 
     }
     
     // Limpieza y cierre de recursos
