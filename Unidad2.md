@@ -11,7 +11,6 @@ Render(): Dibuja los gráficos en la pantalla. Se encarga de la representación 
 Se añade un printf() en cada función para observar el orden en que se ejecutan. Por ejemplo:
 
 ```c
-Copiar código
 void Setup() {
     printf("Setup function called\n");
     // Inicialización de recursos
@@ -27,6 +26,7 @@ void Render() {
     // Dibuja la escena
 }
 ```
+
 ## 3. Ejecución del Programa:
 
 Se ejecuta el programa y se observa cómo las funciones se llaman repetidamente. Esto te mostrará el ciclo continuo del Game Loop, donde Setup() se ejecuta al inicio, y luego Update() y Render() se llaman en cada iteración del loop.
@@ -41,7 +41,6 @@ SDL_GetTicks() es una función de SDL2 que devuelve el número de milisegundos q
 a. Inicializa Variables de Tiempo: Define variables para almacenar el tiempo antes y después de cada función, así como para calcular el tiempo transcurrido (delta time).
 
 ```c
-
 #include <SDL2/SDL.h>
 #include <stdio.h>
 
@@ -51,7 +50,7 @@ Uint32 renderStartTime, renderEndTime, renderDeltaTime;
 
 ```
 b. Modifica la Función Update(): Mide el tiempo antes y después de la ejecución de Update().
-```
+
 ```c
 void Update() {
     updateStartTime = SDL_GetTicks();
@@ -69,7 +68,6 @@ void Update() {
 c. Modifica la Función Render(): Aplica el mismo método para la función Render().
 
 ```c
-Copiar código
 void Render() {
     renderStartTime = SDL_GetTicks();
     
