@@ -110,7 +110,7 @@ gcc -o game main.c -lSDL2
 ./game
 ```
 
-# 2. Analizar el Resultado
+## 2. Analizar el Resultado
    
 a. Variabilidad de Tiempos:
 
