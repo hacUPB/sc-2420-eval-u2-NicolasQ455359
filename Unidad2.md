@@ -174,7 +174,7 @@ Observación: La implementación de SDL_Delay() al final de cada loop permitió 
 
 Análisis: El uso de SDL_Delay() es una estrategia eficaz para evitar que el Game Loop se ejecute demasiado rápido, lo que podría causar fluctuaciones en la tasa de cuadros. Esto asegura que la experiencia de juego sea coherente y suave.
 
-3. Conclusiones y Documentación
+# 3. Conclusiones y Documentación
    
 a. Registra tus Observaciones:
 
