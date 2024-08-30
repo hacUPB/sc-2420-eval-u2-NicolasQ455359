@@ -189,4 +189,65 @@ Explicación: Controlar y entender el tiempo de ejecución es crucial para garan
 Estrategias: Para mantener una frecuencia de actualización constante, se podría implementar un delta time, que permite que los cálculos de movimiento y animación sean independientes de la tasa de cuadros por segundo.
 
 
+### Ejercicio 3: Creación de Figuras Geométricas
+
+Objetivo:
+
+El objetivo es crear y renderizar figuras geométricas básicas (círculos, líneas, rectángulos) en la pantalla utilizando SDL2, y entender el proceso de renderización.
+
+## 1. Dibuja Figuras:
+Primero, vamos a dibujar las figuras geométricas básicas en la función Render(). 
+
+Dibujar un Rectángulo:
+```c
+// Establecer el color del rectángulo (rojo)
+SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+
+// Definir las dimensiones y la posición del rectángulo
+SDL_Rect rect = { 50, 50, 200, 100 };
+
+// Dibujar el rectángulo
+SDL_RenderFillRect(renderer, &rect);
+```
+
+Dibujar una Línea:
+```c
+// Establecer el color de la línea (verde)
+SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+
+// Dibujar la línea
+SDL_RenderDrawLine(renderer, 300, 50, 500, 200);
+```
+
+Dibujar un Círculo:
+
+SDL no tiene una función nativa para dibujar círculos, por lo que se puede implementar una función personalizada:
+
+```c
+void DrawCircle(SDL_Renderer *renderer, int centerX, int centerY, int radius) {
+    // Establecer el color del círculo (azul)
+    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+    
+    for (int w = 0; w < radius * 2; w++) {
+        for (int h = 0; h < radius * 2; h++) {
+            int dx = radius - w; // distancia horizontal desde el centro
+            int dy = radius - h; // distancia vertical desde el centro
+            if ((dx*dx + dy*dy) <= (radius * radius)) {
+                SDL_RenderDrawPoint(renderer, centerX + dx, centerY + dy);
+            }
+        }
+    }
+}
+
+// Llamar a la función DrawCircle en Render()
+DrawCircle(renderer, 400, 300, 50);
+```
+
+2. Colorear las Figuras:
+   
+Como se muestra en el código anterior, puedes usar SDL_SetRenderDrawColor() para cambiar el color de cada figura antes de dibujarla. Esto permite tener un rectángulo rojo, una línea verde y un círculo azul.
+
+
+
+
 
