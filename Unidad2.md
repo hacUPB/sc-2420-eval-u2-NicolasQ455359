@@ -38,7 +38,7 @@ SDL_GetTicks() es una función de SDL2 que devuelve el número de milisegundos q
 
 
 
-a. Inicializa Variables de Tiempo: Define variables para almacenar el tiempo antes y después de cada función, así como para calcular el tiempo transcurrido (delta time).
+A. Inicializa Variables de Tiempo: Define variables para almacenar el tiempo antes y después de cada función, para calcular el tiempo transcurrido (delta time).
 
 ```c
 #include <SDL2/SDL.h>
@@ -65,7 +65,7 @@ void Update() {
 }
 ```
 
-c. Modifica la Función Render(): Aplica el mismo método para la función Render().
+c. Modifica la Función Render()
 
 ```c
 void Render() {
@@ -81,7 +81,7 @@ void Render() {
 }
 ```
 
-d. Estructura del Game Loop: Asegúrate de que tu game loop llama a estas funciones correctamente.
+d. Estructura del Game Loop
 
 ```c
 int main(int argc, char* argv[]) {
@@ -103,7 +103,7 @@ int main(int argc, char* argv[]) {
 }
 ```
 
-e. Compila y Ejecuta el Programa: Compila tu código y ejecuta el programa para observar los resultados en la consola.
+e. Compila y Ejecuta el Programa
 
 ```bash
 gcc -o game main.c -lSDL2
