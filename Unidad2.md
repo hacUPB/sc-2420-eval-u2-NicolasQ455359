@@ -541,7 +541,7 @@ La rotación se mantuvo suave y constante, sin interrupciones o saltos bruscos.
 
 El ciclo de color se realizó sin problemas, proporcionando una variedad constante de tonos para cada figura.
 
-#Ejercicio 6: Rebote de figuras
+# Ejercicio 6: Rebote de figuras
 
 ```c
 #include <SDL2/SDL.h>
