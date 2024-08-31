@@ -710,6 +710,216 @@ La implementación de las colisiones permitió que las figuras cambiaran de dire
 
 No se observaron problemas de rendimiento, y el programa mantuvo una tasa de cuadros constante, lo que es crucial para evitar parpadeos o saltos en la animación.
 
+# Final: 
+
+```c
+#include <stdio.h>
+#include <SDL.h>
+#include <math.h>
+#include <stdbool.h>
+
+// Tamaño de la pantalla
+const int SCREEN_WIDTH = 640;
+const int SCREEN_HEIGHT = 480;
+
+SDL_Window* window = NULL;
+SDL_Renderer* renderer = NULL;
+
+// Variables para el rectángulo
+int rectX = 50, rectY = 50;
+int rectW = 200, rectH = 100;
+int rectSpeedX = 2, rectSpeedY = 2;
+int rectSizeChange = 1;
+
+// Variables para la línea
+int lineX1 = 300, lineY1 = 50, lineX2 = 500, lineY2 = 200;
+int lineSpeedX = 3, lineSpeedY = 2;
+int lineLengthChange = 1;
+
+// Variables para el círculo
+int circleX = 400, circleY = 300;
+int circleRadius = 50;
+int circleSpeedX = 4, circleSpeedY = 3;
+int circleSizeChange = 1;
+
+// Función para dibujar un círculo optimizado
+void DrawCircle(SDL_Renderer* renderer, int centerX, int centerY, int radius) {
+    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+    int offsetX = radius;
+    int offsetY = 0;
+    int d = 1 - radius;
+
+    while (offsetY <= offsetX) {
+        SDL_RenderDrawPoint(renderer, centerX + offsetX, centerY + offsetY);
+        SDL_RenderDrawPoint(renderer, centerX + offsetY, centerY + offsetX);
+        SDL_RenderDrawPoint(renderer, centerX - offsetX, centerY + offsetY);
+        SDL_RenderDrawPoint(renderer, centerX - offsetY, centerY + offsetX);
+        SDL_RenderDrawPoint(renderer, centerX + offsetX, centerY - offsetY);
+        SDL_RenderDrawPoint(renderer, centerX + offsetY, centerY - offsetX);
+        SDL_RenderDrawPoint(renderer, centerX - offsetX, centerY - offsetY);
+        SDL_RenderDrawPoint(renderer, centerX - offsetY, centerY - offsetX);
+
+        if (d < 0) {
+            d += 2 * offsetY + 3;
+        }
+        else {
+            d += 2 * (offsetY - offsetX) + 5;
+            offsetX--;
+        }
+        offsetY++;
+    }
+}
+
+// Función para verificar colisiones con los bordes de la pantalla y rebotar
+void CheckCollisionWithBounds(int* x, int* y, int* w, int* h, int* speedX, int* speedY) {
+    if (*x <= 0 || *x + *w >= SCREEN_WIDTH) {
+        *speedX = -*speedX;
+    }
+    if (*y <= 0 || *y + *h >= SCREEN_HEIGHT) {
+        *speedY = -*speedY;
+    }
+}
+
+// Función para verificar colisiones entre dos rectángulos y rebotar
+void CheckCollisionBetweenFigures(int* x1, int* y1, int w1, int h1, int* speedX1, int* speedY1,
+    int* x2, int* y2, int w2, int h2, int* speedX2, int* speedY2) {
+    if (*x1 < *x2 + w2 && *x1 + w1 > *x2 && *y1 < *y2 + h2 && *y1 + h1 > *y2) {
+        *speedX1 = -*speedX1;
+        *speedY1 = -*speedY1;
+        *speedX2 = -*speedX2;
+        *speedY2 = -*speedY2;
+    }
+}
+
+// Función para actualizar las posiciones, tamaños y manejar colisiones
+void UpdateFigures() {
+    // Actualizar posición del rectángulo
+    rectX += rectSpeedX;
+    rectY += rectSpeedY;
+    rectW += rectSizeChange;
+    rectH += rectSizeChange;
+
+    // Verificar límites del tamaño del rectángulo
+    if (rectW > 300 || rectW < 100) {
+        rectSizeChange = -rectSizeChange;
+    }
+
+    CheckCollisionWithBounds(&rectX, &rectY, &rectW, &rectH, &rectSpeedX, &rectSpeedY);
+
+    // Actualizar posición de la línea (como si fuera un rectángulo)
+    lineX1 += lineSpeedX;
+    lineY1 += lineSpeedY;
+    lineX2 += lineSpeedX;
+    lineY2 += lineSpeedY;
+
+    // Modificar longitud de la línea
+    lineX2 += lineLengthChange;
+    lineY2 += lineLengthChange;
+
+    int lineW = abs(lineX2 - lineX1);
+    int lineH = abs(lineY2 - lineY1);
+
+    // Verificar límites de la longitud de la línea
+    if (lineW > 300 || lineW < 100) {
+        lineLengthChange = -lineLengthChange;
+    }
+
+    CheckCollisionWithBounds(&lineX1, &lineY1, &lineW, &lineH, &lineSpeedX, &lineSpeedY);
+
+    // Actualizar posición del círculo
+    circleX += circleSpeedX;
+    circleY += circleSpeedY;
+    circleRadius += circleSizeChange;
+
+    // Verificar límites del tamaño del círculo
+    if (circleRadius > 100 || circleRadius < 20) {
+        circleSizeChange = -circleSizeChange;
+    }
+
+    // Verificar colisión con los bordes de la pantalla para el círculo
+    if (circleX - circleRadius <= 0 || circleX + circleRadius >= SCREEN_WIDTH) {
+        circleSpeedX = -circleSpeedX;
+    }
+    if (circleY - circleRadius <= 0 || circleY + circleRadius >= SCREEN_HEIGHT) {
+        circleSpeedY = -circleSpeedY;
+    }
+
+    // Verificar colisiones entre figuras
+    CheckCollisionBetweenFigures(&rectX, &rectY, rectW, rectH, &rectSpeedX, &rectSpeedY, &lineX1, &lineY1, lineW, lineH, &lineSpeedX, &lineSpeedY);
+    CheckCollisionBetweenFigures(&rectX, &rectY, rectW, rectH, &rectSpeedX, &rectSpeedY, &circleX, &circleY, circleRadius * 2, circleRadius * 2, &circleSpeedX, &circleSpeedY);
+    CheckCollisionBetweenFigures(&lineX1, &lineY1, lineW, lineH, &lineSpeedX, &lineSpeedY, &circleX, &circleY, circleRadius * 2, circleRadius * 2, &circleSpeedX, &circleSpeedY);
+}
+
+int main(int argc, char* argv[]) {
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+        return 1;
+    }
+
+    window = SDL_CreateWindow("SDL2 - Rebote de Figuras con Cambio de Tamaño", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    if (window == NULL) {
+        printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
+        SDL_Quit();
+        return 1;
+    }
+
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (renderer == NULL) {
+        printf("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return 1;
+    }
+
+    bool quit = false;
+    SDL_Event e;
+
+    while (!quit) {
+        while (SDL_PollEvent(&e) != 0) {
+            if (e.type == SDL_QUIT) {
+                quit = true;
+            }
+        }
+
+        // Actualizar figuras
+        UpdateFigures();
+
+        // Limpiar la pantalla
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_RenderClear(renderer);
+
+        // Dibujar un rectángulo
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        SDL_Rect rect = { rectX, rectY, rectW, rectH };
+        SDL_RenderFillRect(renderer, &rect);
+
+        // Dibujar una línea
+        SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+        SDL_RenderDrawLine(renderer, lineX1, lineY1, lineX2, lineY2);
+
+        // Dibujar un círculo
+        DrawCircle(renderer, circleX, circleY, circleRadius);
+
+        SDL_RenderPresent(renderer);
+
+        SDL_Delay(16); // Aproximadamente 60 FPS
+    }
+
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+
+    return 0;
+}
+```
+Cambios:
+
+Movimiento Suave del Círculo: Se asegura que el círculo se mueva suavemente y rebote correctamente cuando toca los bordes de la ventana.
+
+Detección de Colisiones: Las colisiones entre las figuras se manejan de manera más precisa y rebota correctamente en cada caso.
+
+Optimización del Dibujado del Círculo: El método DrawCircle se ha sido optimizado para mejorar el rendimiento.
+
 
 
 
