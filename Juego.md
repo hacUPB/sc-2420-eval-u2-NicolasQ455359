@@ -69,4 +69,22 @@ void moveFortress(const Uint8* keystate) {
 }
 ```
 
+# 4. Disparo:
+
+•	Disparo con el ratón: Al hacer clic con el botón izquierdo, se dispara un proyectil desde la fortaleza hacia la dirección del cursor del ratón.
+```c
+void shootBullet(int mouseX, int mouseY) {
+    bulletX = fortressX;
+    bulletY = fortressY;
+
+    double deltaX = mouseX - bulletX;
+    double deltaY = mouseY - bulletY;
+    double length = sqrt(deltaX * deltaX + deltaY * deltaY);
+    bulletDirX = deltaX / length;
+    bulletDirY = deltaY / length;
+    isShooting = true;
+}
+```
+
+
 
