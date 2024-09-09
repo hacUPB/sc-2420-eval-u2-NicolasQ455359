@@ -26,3 +26,22 @@ if (renderer == NULL) {
 }
 ```
 
+# 2. Configuración de la fortaleza y los enemigos:
+
+•	Fortaleza: Inicialmente se coloca en el centro de la pantalla con un tamaño de 40x40 píxeles.
+
+•	Enemigos: Se colocan en los bordes de la pantalla y se mueven hacia la fortaleza.
+```c
+fortressX = SCREEN_WIDTH / 2;
+fortressY = SCREEN_HEIGHT / 2;
+
+void createEnemies() {
+    for (int i = 0; i < 5; i++) {
+        enemies[i].x = (i % 2 == 0) ? 0 : SCREEN_WIDTH;
+        enemies[i].y = rand() % SCREEN_HEIGHT;
+        enemies[i].size = 20;
+        enemies[i].speed = 2 + rand() % 3;
+    }
+}
+```
+
