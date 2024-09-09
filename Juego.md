@@ -45,3 +45,28 @@ void createEnemies() {
 }
 ```
 
+# 3. Movimiento de la Fortaleza:
+
+•	Teclas W, A, S, D: Controlan el movimiento de la fortaleza. Las teclas W y S mueven la fortaleza hacia arriba y abajo, respectivamente, mientras que A y D mueven la fortaleza hacia la izquierda y derecha.
+```C
+void moveFortress(const Uint8* keystate) {
+    if (keystate[SDL_SCANCODE_W]) {
+        fortressY -= fortressSpeed;
+        if (fortressY < fortressSize / 2) fortressY = fortressSize / 2;
+    }
+    if (keystate[SDL_SCANCODE_S]) {
+        fortressY += fortressSpeed;
+        if (fortressY > SCREEN_HEIGHT - fortressSize / 2) fortressY = SCREEN_HEIGHT - fortressSize / 2;
+    }
+    if (keystate[SDL_SCANCODE_A]) {
+        fortressX -= fortressSpeed;
+        if (fortressX < fortressSize / 2) fortressX = fortressSize / 2;
+    }
+    if (keystate[SDL_SCANCODE_D]) {
+        fortressX += fortressSpeed;
+        if (fortressX > SCREEN_WIDTH - fortressSize / 2) fortressX = SCREEN_WIDTH - fortressSize / 2;
+    }
+}
+```
+
+
