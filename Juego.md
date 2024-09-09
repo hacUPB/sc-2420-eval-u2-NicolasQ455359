@@ -26,6 +26,7 @@ if (renderer == NULL) {
 }
 ```
 
+
 # 2. Configuración de la fortaleza y los enemigos:
 
 •	Fortaleza: Inicialmente se coloca en el centro de la pantalla con un tamaño de 40x40 píxeles.
@@ -85,6 +86,49 @@ void shootBullet(int mouseX, int mouseY) {
     isShooting = true;
 }
 ```
+
+5. Actualización y Dibujo:
+   
+•	Actualización: Actualiza las posiciones de la fortaleza, los enemigos y los proyectiles en cada frame.
+
+•	Dibujo: Dibuja la fortaleza, los enemigos y los proyectiles en la pantalla.
+```c
+// Actualiza la posición del proyectil
+void updateBullet() {
+    if (isShooting) {
+        bulletX += (int)(bulletDirX * bulletSpeed);
+        bulletY += (int)(bulletDirY * bulletSpeed);
+
+        if (bulletX < 0 || bulletX > SCREEN_WIDTH || bulletY < 0 || bulletY > SCREEN_HEIGHT) {
+            isShooting = false;
+        }
+    }
+}
+
+// Dibuja los elementos en pantalla
+void drawFortress() {
+    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+    SDL_Rect fortressRect = {fortressX - fortressSize / 2, fortressY - fortressSize / 2, fortressSize, fortressSize};
+    SDL_RenderFillRect(renderer, &fortressRect);
+}
+
+void drawBullet() {
+    if (isShooting) {
+        SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+        SDL_Rect bulletRect = {bulletX - 5, bulletY - 5, 10, 10};
+        SDL_RenderFillRect(renderer, &bulletRect);
+    }
+}
+
+void drawEnemies() {
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    for (int i = 0; i < 5; i++) {
+        SDL_Rect enemyRect = {enemies[i].x - enemies[i].size / 2, enemies[i].y - enemies[i].size / 2, enemies[i].size, enemies[i].size};
+        SDL_RenderFillRect(renderer, &enemyRect);
+    }
+}
+```
+
 
 
 
