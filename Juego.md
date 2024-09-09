@@ -1,4 +1,4 @@
-# 1.Configuración:
+# 1. Configuración:
 
 •	SDL_Init: Inicializa la biblioteca SDL para video.
 
@@ -87,7 +87,7 @@ void shootBullet(int mouseX, int mouseY) {
 }
 ```
 
-5. Actualización y Dibujo:
+# 5. Actualización y Dibujo:
    
 •	Actualización: Actualiza las posiciones de la fortaleza, los enemigos y los proyectiles en cada frame.
 
