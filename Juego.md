@@ -129,6 +129,45 @@ void drawEnemies() {
 }
 ```
 
+# 6. Bucle Principal:
+
+•	Manejo de eventos: Utiliza SDL_PollEvent para manejar eventos de teclado y mouse.
+
+•	Actualización y renderizado: Llama a funciones de actualización y renderizado en cada iteración del bucle.
+```c
+while (!quit) {
+    const Uint8* keystate = SDL_GetKeyboardState(NULL);
+
+    while (SDL_PollEvent(&e) != 0) {
+        if (e.type == SDL_QUIT) {
+            quit = true;
+        } else if (e.type == SDL_KEYDOWN) {
+            if (e.key.keysym.sym == SDLK_ESCAPE) {
+                quit = true;
+            }
+        } else if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT) {
+            shootBullet(e.button.x, e.button.y);
+        }
+    }
+
+    moveFortress(keystate);
+    updateEnemies();
+    updateBullet();
+
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+
+    drawFortress();
+    drawEnemies();
+    drawBullet();
+
+    SDL_RenderPresent(renderer);
+
+    SDL_Delay(16);  // Aproximadamente 60 FPS
+}
+```
+
+
 
 
 
