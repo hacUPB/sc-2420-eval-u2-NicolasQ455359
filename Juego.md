@@ -1,7 +1,9 @@
 # 1.Configuración:
 
 •	SDL_Init: Inicializa la biblioteca SDL para video.
+
 •	SDL_CreateWindow: Crea una ventana con el título "Defiende la Fortaleza".
+
 •	SDL_CreateRenderer: Crea un renderer para dibujar en la ventana.
 
 ```c
